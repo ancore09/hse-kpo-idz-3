@@ -1,6 +1,9 @@
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sd.Oms.Auth.Api.Extensions;
 using Sd.Oms.Auth.Api.Requests;
+using Sd.Oms.Auth.Core.Extensions;
 using Sd.Oms.Auth.Core.Interfaces;
 
 namespace Sd.Oms.Auth.Api.Controllers;
@@ -37,4 +40,20 @@ public class AuthController : Controller
         
         return Ok(responseDto);
     }
+    
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    [Route("get-user/{id:long}")]
+    public async Task<IActionResult> GetUser(long id, [FromServices] IUserRepository userRepository)
+    {
+        var entity = await userRepository.GetByIdAsync(id);
+        
+        if (entity == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(entity.ToModel());
+    }
+    
 }

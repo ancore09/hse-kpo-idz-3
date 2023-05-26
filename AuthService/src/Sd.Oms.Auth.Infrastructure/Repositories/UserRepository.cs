@@ -37,4 +37,17 @@ public class UserRepository: IUserRepository
         var entity = await connection.QuerySingleOrDefaultAsync<UserEntity>(command.CommandText, queryParameters);
         return entity;
     }
+
+    public async Task<UserEntity?> GetByIdAsync(long id)
+    {
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+        await using var command = new NpgsqlCommand("SELECT id, username, email, password_hash as PasswordHash, role, created_at as CreatedAt, updated_at as UpdatedAt FROM users WHERE id = @id", connection);
+        var queryParameters = new
+        {
+            id
+        };
+        var entity = await connection.QuerySingleOrDefaultAsync<UserEntity>(command.CommandText, queryParameters);
+        return entity;
+    }
 }
