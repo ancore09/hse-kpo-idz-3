@@ -8,5 +8,5 @@ public class OrderEntity
     public string SpecialRequests { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
-    public List<(DishEntity, int)> Dishes { get; set; } = new();
+    public List<DishEntity> Dishes { get; set; } = new();
 }

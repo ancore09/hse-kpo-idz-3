@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Sd.Oms.Api.Middlewares;
 using Sd.Oms.Core.Extensions;
 using Sd.Oms.Infrastructure.Extensions;
 
@@ -52,7 +53,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ErrorMiddleware>();
+
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

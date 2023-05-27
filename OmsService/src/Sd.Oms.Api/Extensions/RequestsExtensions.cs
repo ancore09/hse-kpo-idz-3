@@ -11,7 +11,10 @@ public static class RequestsExtensions
         {
             UserId = request.UserId,
             SpecialIRequests = request.SpecialIRequests,
-            Dishes = request.Dishes
+            Dishes = request.DishQuantities.Select(pair =>
+            {
+                return (pair.Key, pair.Value);
+            }).ToList()
         };
     }
 }

@@ -42,6 +42,26 @@ public class DishRepository: IDishRepository
         return await connection.QuerySingleAsync<DishEntity>(command.CommandText, queryParameters);
     }
 
+    public async Task<List<DishEntity>> GetAllAsync()
+    {
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+        await using var command = new NpgsqlCommand("SELECT * FROM dish", connection);
+        return (await connection.QueryAsync<DishEntity>(command.CommandText)).ToList();
+    }
+
+    public async Task<List<DishEntity>> GetManyByIdAsync(long[] ids)
+    {
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+        await using var command = new NpgsqlCommand("SELECT * FROM dish WHERE id = any(@ids)", connection);
+        var queryParameters = new
+        {
+            ids = ids
+        };
+        return (await connection.QueryAsync<DishEntity>(command.CommandText, queryParameters)).ToList();
+    }
+
     public async Task<long> UpdateAsync(DishEntity dishEntity)
     {
         await using var connection = new NpgsqlConnection(_connectionString);
@@ -68,5 +88,24 @@ public class DishRepository: IDishRepository
             id
         };
         return await connection.ExecuteAsync(command.CommandText, queryParameters);
+    }
+
+    public async Task<long> DecreaseQuantityAsync(IEnumerable<(long, int)> dishes)
+    {
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+        await using var command = new NpgsqlCommand("UPDATE dish SET quantity = quantity - @quantity WHERE id = @id", connection);
+        var rowsAffected = 0;
+        foreach (var (id, quantity) in dishes)
+        {
+            var queryParameters = new
+            {
+                id,
+                quantity
+            };
+            rowsAffected += await connection.ExecuteAsync(command.CommandText, queryParameters);
+        }
+
+        return rowsAffected;
     }
 }

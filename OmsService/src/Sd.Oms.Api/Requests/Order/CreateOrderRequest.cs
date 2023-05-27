@@ -8,5 +8,5 @@ public class CreateOrderRequest
     public long UserId { get; set; }
     public string? SpecialIRequests { get; set; }
     [Required]
-    public List<(long, int)> Dishes { get; set; }
+    public Dictionary<long, int> DishQuantities { get; set; }
 }
