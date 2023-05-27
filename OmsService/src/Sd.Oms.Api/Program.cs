@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Sd.Oms.Core.Extensions;
 using Sd.Oms.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(ConfigureOptions);
+builder.Services.AddCore(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 
 

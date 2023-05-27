@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Sd.Oms.Api.Requests;
+namespace Sd.Oms.Api.Requests.DIsh;
 
 public class DeleteDishRequest
 {

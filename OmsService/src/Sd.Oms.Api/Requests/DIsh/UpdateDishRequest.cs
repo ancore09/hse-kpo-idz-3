@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Sd.Oms.Api.Requests;
+namespace Sd.Oms.Api.Requests.DIsh;
 
-public class CreateDishRequest
+public class UpdateDishRequest
 {
+    [Required]
+    public long Id { get; set; }
     [Required]
     public string Name { get; set; }
     [Required]
