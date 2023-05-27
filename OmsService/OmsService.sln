@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sd.Oms.Core", "src\Sd.Oms.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sd.Oms.Infrastructure", "src\Sd.Oms.Infrastructure\Sd.Oms.Infrastructure.csproj", "{C8565602-8F3A-4300-9916-7128825FFB7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sd.Oms.BackgroundWorkers", "src\Sd.Oms.BackgroundWorkers\Sd.Oms.BackgroundWorkers.csproj", "{7A8B43EE-2BB4-44C5-AC89-A5BBB7B9BBB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,7 @@ Global
 		{BA9A8753-6484-4BFD-A574-D4E6A5556CA7} = {0864AAC9-5C93-4F91-A682-11764CEF7BA0}
 		{5BF8E752-8E62-4DE3-B560-8ED070D5D606} = {0864AAC9-5C93-4F91-A682-11764CEF7BA0}
 		{C8565602-8F3A-4300-9916-7128825FFB7F} = {0864AAC9-5C93-4F91-A682-11764CEF7BA0}
+		{7A8B43EE-2BB4-44C5-AC89-A5BBB7B9BBB3} = {0864AAC9-5C93-4F91-A682-11764CEF7BA0}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BA9A8753-6484-4BFD-A574-D4E6A5556CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -39,5 +42,9 @@ Global
 		{C8565602-8F3A-4300-9916-7128825FFB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8565602-8F3A-4300-9916-7128825FFB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8565602-8F3A-4300-9916-7128825FFB7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A8B43EE-2BB4-44C5-AC89-A5BBB7B9BBB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A8B43EE-2BB4-44C5-AC89-A5BBB7B9BBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A8B43EE-2BB4-44C5-AC89-A5BBB7B9BBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A8B43EE-2BB4-44C5-AC89-A5BBB7B9BBB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

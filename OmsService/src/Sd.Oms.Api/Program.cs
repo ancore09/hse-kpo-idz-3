@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Sd.Oms.Api.Middlewares;
+using Sd.Oms.BackgroundWorkers.Extensions;
 using Sd.Oms.Core.Extensions;
 using Sd.Oms.Infrastructure.Extensions;
 
@@ -40,6 +41,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(ConfigureOptions);
 builder.Services.AddCore(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddWorkers(builder.Configuration);
 
 
 var app = builder.Build();

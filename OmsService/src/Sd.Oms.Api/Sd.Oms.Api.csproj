@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Sd.Oms.BackgroundWorkers\Sd.Oms.BackgroundWorkers.csproj" />
       <ProjectReference Include="..\Sd.Oms.Infrastructure\Sd.Oms.Infrastructure.csproj" />
     </ItemGroup>
 

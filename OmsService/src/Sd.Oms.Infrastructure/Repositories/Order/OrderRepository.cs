@@ -40,6 +40,33 @@ public class OrderRepository: IOrderRepository
         return result.FirstOrDefault();
     }
 
+    public async Task<IEnumerable<OrderEntity>> GetPendingOrdersAsync(long limit)
+    {
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+        await using var command = new NpgsqlCommand("select id, user_id as UserId, status, special_requests as SpecialRequests, created_at as CreatedAt, updated_at as UpdatedAt from \"order\" where status = 'waiting' order by created_at limit @limit", connection);
+        var queryParameters = new
+        {
+            limit
+        };
+        var orders = await connection.QueryAsync<OrderEntity>(command.CommandText, queryParameters);
+        return orders;
+    }
+
+    public async Task<long> SetStatusAsync(long id, string status)
+    {
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+        await using var command = new NpgsqlCommand("update \"order\" set status = @status, updated_at = now() where id = @id", connection);
+        var queryParameters = new
+        {
+            id,
+            status
+        };
+        var result = await connection.ExecuteAsync(command.CommandText, queryParameters);
+        return result;
+    }
+
     public async Task<long> CreateOrderAsync(OrderEntity order)
     {
         await using var connection = new NpgsqlConnection(_connectionString);
