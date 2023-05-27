@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Sd.Oms.Auth.Core.DTOs;
 using Sd.Oms.Auth.Core.Entities;
@@ -16,10 +17,12 @@ public class AuthenticationService: IAuthenticationService
 {
     private readonly IUserRepository _userRepository;
     private readonly TokenValidationParameters _validationParameters;
+    private readonly string _jwtKey;
 
-    public AuthenticationService(IUserRepository userRepository)
+    public AuthenticationService(IUserRepository userRepository, IConfiguration configuration)
     {
         _userRepository = userRepository;
+        _jwtKey = configuration["AuthOptions:JwtKey"]!;
         _validationParameters = new TokenValidationParameters()
         {
             ValidateIssuer = true,
@@ -31,7 +34,7 @@ public class AuthenticationService: IAuthenticationService
                 TokenValidationParameters _) => new List<SecurityKey>()
             {
                 new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes("jwt-giga-mega-sigma-super-secret-key"))
+                    Encoding.UTF8.GetBytes(_jwtKey))
             },
             ValidateIssuerSigningKey = true,
             ClockSkew = TimeSpan.Zero
@@ -95,7 +98,7 @@ public class AuthenticationService: IAuthenticationService
             notBefore: DateTime.Now.ToUniversalTime(),
             expires: DateTime.Now.AddMinutes(lifetimeInMinutes).ToUniversalTime(),
             signingCredentials: new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jwt-giga-mega-sigma-super-secret-key")),
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey)),
                 SecurityAlgorithms.HmacSha256
             )
         );     

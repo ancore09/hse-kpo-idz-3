@@ -75,7 +75,7 @@ void ConfigureOptions(JwtBearerOptions jwtBearerOptions)
             TokenValidationParameters _) => new List<SecurityKey>()
         {
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("jwt-giga-mega-sigma-super-secret-key"))
+                Encoding.UTF8.GetBytes(builder.Configuration["AuthOptions:JwtKey"]!))
         },
         ValidateIssuerSigningKey = true,
         ClockSkew = TimeSpan.Zero

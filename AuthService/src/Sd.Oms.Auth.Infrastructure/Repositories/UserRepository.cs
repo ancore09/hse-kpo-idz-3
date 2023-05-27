@@ -1,4 +1,5 @@
 using Dapper;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 using Sd.Oms.Auth.Core.Entities;
 using Sd.Oms.Auth.Core.Interfaces;
@@ -7,7 +8,12 @@ namespace Sd.Oms.Auth.Infrastructure.Repositories;
 
 public class UserRepository: IUserRepository
 {
-    private const string _connectionString = "host=localhost;port=5432;database=auth-service;username=auth-service;password=auth-service";
+    private readonly string _connectionString;
+    
+    public UserRepository(IConfiguration configuration)
+    {
+        _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+    }
 
     public async Task<long> InsertAsync(UserEntity entity)
     {
