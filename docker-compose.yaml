@@ -12,3 +12,15 @@ services:
         POSTGRES_DB: auth-service
       volumes:
         - ./AuthService/migrations:/docker-entrypoint-initdb.d
+      
+    oms-db:
+      image: postgres:14.4-alpine
+      container_name: oms-db
+      ports:
+        - "5433:5432"
+      environment:
+        POSTGRES_USER: oms-service
+        POSTGRES_PASSWORD: oms-service
+        POSTGRES_DB: oms-service
+      volumes:
+        - ./OmsService/migrations:/docker-entrypoint-initdb.d
