@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sd.Oms.Api.Requests;
 using Sd.Oms.Api.Requests.DIsh;
@@ -8,6 +9,7 @@ namespace Sd.Oms.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize(Roles="Admin,Manager")]
 public class DishController: ControllerBase
 {
     private readonly IDishRepository _dishRepository;

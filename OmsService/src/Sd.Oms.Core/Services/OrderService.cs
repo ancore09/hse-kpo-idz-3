@@ -66,6 +66,11 @@ public class OrderService: IOrderService
     public async Task<Order> GetOrderAsync(long id)
     {
         var entity = await _orderRepository.GetOrderAsync(id);
+        
+        if (entity == null)
+        {
+            throw new OrderNotFoundException($"Order with id {id} not found");
+        }
 
         var order = new Order()
         {
