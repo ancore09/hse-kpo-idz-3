@@ -23,8 +23,7 @@ internal sealed class ErrorMiddleware
             context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
             await context.Response.WriteAsync(new
             {
-                // TODO: Прокидывать нормальное сообщение
-                Message = "Бро, кринжуешь"
+                Message = e.Message
             }.ToString() ?? string.Empty);
 
         }
